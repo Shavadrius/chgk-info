@@ -17,6 +17,7 @@ body {
 
 .container {
   width: 90%;
+  padding: 50px 20px;
   max-width: 1920px;
   background: #000;
   border-radius: 6px;
@@ -39,19 +40,6 @@ header {
   display: flex;
   align-items: center;
   gap: 12px;
-}
-
-.logo {
-  width: 50px;
-  height: 50px;
-  background: #d40000;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  font-weight: bold;
-  color: white;
 }
 
 .tournament-title {
@@ -108,88 +96,23 @@ header {
   background: rgba(212, 0, 0, 0.1);
 }
 
-.team-name {
-  font-weight: 600;
-  text-align: left;
-  color: #fff;
-  font-size: 13px;
-}
-
-.category {
-  font-weight: 500;
-  padding: 3px 6px;
-  border-radius: 10px;
-  display: inline-block;
-  font-size: 12px;
-}
-
-.category-general {
-  background: rgba(212, 0, 0, 0.3);
-  color: #fff;
-  border: 1px solid #d40000;
-}
-
-.category-corporate {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  border: 1px solid #fff;
-}
-
-.category-school {
-  background: rgba(200, 200, 200, 0.2);
-  color: #fff;
-  border: 1px solid #aaa;
-}
-
-.category-student {
-  background: rgba(150, 150, 150, 0.2);
-  color: #fff;
-  border: 1px solid #888;
-}
-
-.place {
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.tour-result {
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.mi-result {
-  font-weight: 600;
-}
-
 footer {
   background: #000;
-  padding: 10px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 30px;
   flex-shrink: 0;
 }
 
 .sponsor {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 5px;
+  gap: 50px;
 }
 
-.sponsor-logo {
-  width: 70px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  color: #fff;
-  font-weight: 500;
-  border: 1px solid #d40000;
+.sponsor-logo img {
+  height: 100px;
 }
 
 .sponsor-name {
@@ -218,7 +141,6 @@ footer {
   color: #fff;
 }
 
-/* Стили для скроллбара */
 .table-container::-webkit-scrollbar {
   width: 8px;
 }

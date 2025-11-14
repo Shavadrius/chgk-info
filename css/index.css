@@ -49,7 +49,7 @@ header {
 }
 
 .tournament-subtitle {
-  font-size: 14px;
+  font-size: 18px;
   color: #fff;
   margin-top: 2px;
 }
@@ -131,13 +131,13 @@ footer {
 }
 
 .tournament-date {
-  font-size: 13px;
+  font-size: 18px;
   color: #fff;
   margin-bottom: 2px;
 }
 
 .tournament-location {
-  font-size: 12px;
+  font-size: 18px;
   color: #fff;
 }
 

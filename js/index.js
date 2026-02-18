@@ -2,12 +2,33 @@ const REFRESH_INTERVAL = 15000;
 
 const urlParams = new URLSearchParams(window.location.search);
 const spreadsheetId = urlParams.get("id");
-const sheetName = urlParams.get("sheet");
-const sortColumnsParam = urlParams.get("sort");
+const sheetName1 = urlParams.get("sheet1");
+const sortColumnsParam1 = urlParams.get("sort1");
+const hideColsParam1 = urlParams.get("hide1");
+const sheetName2 = urlParams.get("sheet2");
+const sortColumnsParam2 = urlParams.get("sort2");
+const hideColsParam2 = urlParams.get("hide2");
 
-let sortConfig = [];
-if (sortColumnsParam) {
-  sortConfig = sortColumnsParam
+let sortConfig1 = [];
+let sortConfig2 = [];
+if (sortColumnsParam1) {
+  sortConfig1 = getSortConfig(sortColumnsParam1);
+}
+if (sortColumnsParam2) {
+  sortConfig2 = getSortConfig(sortColumnsParam2);
+}
+
+let hideCols1 = [];
+let hideCols2 = [];
+if (hideColsParam1) {
+  hideCols1 = hideColsParam1.split(",").map((val) => parseInt(val));
+}
+if (hideColsParam2) {
+  hideCols2 = hideColsParam2.split(",").map((val) => parseInt(val));
+}
+
+function getSortConfig(sortColumnsParam) {
+  return sortColumnsParam
     .split(";")
     .map((pair) => {
       const [column, order] = pair.split(",").map((val) => parseInt(val));
@@ -17,28 +38,43 @@ if (sortColumnsParam) {
 }
 
 function loadGoogleSheetData() {
-  if (!spreadsheetId || !sheetName) {
+  if (!spreadsheetId || !sheetName1 || !sheetName2) {
     return;
   }
-  const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=responseHandler:handleData&sheet=${sheetName}`;
+  appendScript(sheetName1, 'handleData1');
+  appendScript(sheetName2, 'handleData2');
+}
+
+function appendScript(sheetName, callback) {
+  const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=responseHandler:${callback}&sheet=${sheetName}`;
 
   const script = document.createElement("script");
-  script.src = `${url}&callback=handleData`;
+  script.src = `${url}&callback=${callback}`;
   document.head.appendChild(script);
 }
 
-function handleData(response) {
+function handleData1(response) {
   if (response && response.table) {
     const data = response.table;
     console.log("Data received:", data);
-    renderTable(data);
+    renderTable(data, '#chgk', sortConfig1, hideCols1);
   } else {
     console.error("Invalid data format:", response);
   }
 }
 
-function renderTable(data) {
-  const table = document.querySelector(".results-table");
+function handleData2(response) {
+  if (response && response.table) {
+    const data = response.table;
+    console.log("Data received:", data);
+    renderTable(data, '#mi', sortConfig2, hideCols2);
+  } else {
+    console.error("Invalid data format:", response);
+  }
+}
+
+function renderTable(data, tableSelector, sortConfig, hideCols) {
+  const table = document.querySelector(tableSelector);
   const thead = table.querySelector("thead tr");
   const tbody = table.querySelector("tbody");
 
@@ -49,7 +85,10 @@ function renderTable(data) {
   thPlace.textContent = "Место";
   thead.appendChild(thPlace);
 
-  data.cols.forEach((col) => {
+  data.cols.forEach((col, cellIndex) => {
+    if (hideCols.includes(cellIndex)) {
+      return;
+    }
     const th = document.createElement("th");
     th.textContent = col.label || "";
     thead.appendChild(th);
@@ -96,6 +135,10 @@ function renderTable(data) {
     tr.appendChild(tdPlace);
 
     row.c.forEach((cellData, cellIndex) => {
+      if (hideCols.includes(cellIndex)) {
+        return;
+      }
+
       const td = document.createElement("td");
 
       if (cellData && cellData.v !== null && cellData.v !== undefined) {

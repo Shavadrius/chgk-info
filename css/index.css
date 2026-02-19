@@ -17,7 +17,7 @@ body {
 
 .container {
   width: 90%;
-  padding: 50px 20px;
+  padding: 20px 20px;
   max-width: 1920px;
   background: #000;
   border-radius: 6px;
@@ -29,7 +29,7 @@ body {
 
 header {
   background: #000;
-  padding: 20px 20px;
+  padding: 10px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -43,7 +43,7 @@ header {
 }
 
 .tournament-title {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   color: #fff;
 }
@@ -64,7 +64,7 @@ header {
 .results-table th {
   background: #d40000;
   color: white;
-  padding: 8px 6px;
+  padding: 5px;
   text-align: center;
   font-weight: 600;
   border-right: 1px solid #333;
@@ -112,7 +112,7 @@ footer {
 }
 
 .sponsor-logo img {
-  height: 80px;
+  height: 50px;
 }
 
 .sponsor-name {
